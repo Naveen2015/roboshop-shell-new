@@ -16,6 +16,9 @@ echo -e "\e[36m>>>>>>>>> Installing Mysql<<<<<<<<\e[0m"
 dnf install mysql -y
 echo -e "\e[36m>>>>>>>>> Loading schema <<<<<<<<\e[0m"
 mysql -h mysql-dev.kruthikadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+cp /home/centos/roboshop-shell-new/shipment.service /etc/systemd/system/shipment.service
+
 echo -e "\e[36m>>>>>>>>> Staring Shipping service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable shipping

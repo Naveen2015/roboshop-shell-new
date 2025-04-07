@@ -14,6 +14,9 @@ echo -e "\e[36m>>>>>>>>> Unzip app content <<<<<<<<\e[0m"
 unzip /tmp/user.zip
 echo -e "\e[36m>>>>>>>>> Downloading Nodejs dependencies <<<<<<<<\e[0m"
 npm install
+echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+cp /home/centos/roboshop-shell-new/user.service /etc/systemd/system/user.service
+
 echo -e "\e[36m>>>>>>>>> Staring user service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable user

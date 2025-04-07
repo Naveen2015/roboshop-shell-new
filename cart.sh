@@ -13,6 +13,10 @@ echo -e "\e[36m>>>>>>>>> Unzip app content <<<<<<<<\e[0m"
 unzip /tmp/cart.zip
 echo -e "\e[36m>>>>>>>>> Downloading Nodejs dependencies <<<<<<<<\e[0m"
 npm install
+echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+cp /home/centos/roboshop-shell-new/cart.service /etc/systemd/system/cart.service
+
+
 echo -e "\e[36m>>>>>>>>> Staring cart service <<<<<<<<\e[0m"
 
 systemctl daemon-reload

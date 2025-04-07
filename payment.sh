@@ -11,6 +11,9 @@ echo -e "\e[36m>>>>>>>>> Unzip app content <<<<<<<<\e[0m"
 unzip /tmp/payment.zip
 echo -e "\e[36m>>>>>>>>> Installing Python dependencies <<<<<<<<\e[0m"
 pip3.6 install -r requirements.txt
+echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+cp /home/centos/roboshop-shell-new/payment.service /etc/systemd/system/payment.service
+
 echo -e "\e[36m>>>>>>>>> Staring Payment Service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable payment
