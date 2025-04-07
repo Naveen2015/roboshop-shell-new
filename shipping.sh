@@ -3,6 +3,7 @@ dnf install maven -y
 echo -e "\e[36m>>>>>>>>> Adding Application User <<<<<<<<\e[0m"
 useradd roboshop
 echo -e "\e[36m>>>>>>>>> Creating Application Folder <<<<<<<<\e[0m"
+rm -rf /app
 mkdir /app
 echo -e "\e[36m>>>>>>>>> Downloading app content <<<<<<<<\e[0m"
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip
@@ -17,7 +18,7 @@ dnf install mysql -y
 echo -e "\e[36m>>>>>>>>> Loading schema <<<<<<<<\e[0m"
 mysql -h mysql-dev.kruthikadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
-cp /home/centos/roboshop-shell-new/shipping.service /etc/systemd/system/shipment.service
+cp /home/centos/roboshop-shell-new/shipping.service /etc/systemd/system/shipping.service
 
 echo -e "\e[36m>>>>>>>>> Staring Shipping service <<<<<<<<\e[0m"
 systemctl daemon-reload
