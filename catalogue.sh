@@ -1,7 +1,7 @@
 script_path=$(dirname $0)
 echo ${script_path}
-exit
-source common.sh
+
+source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>> configuring and downloading nodejs <<<<<<<<\e[0m"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
@@ -19,6 +19,7 @@ unzip /tmp/catalogue.zip
 echo -e "\e[36m>>>>>>>>> Downloading nodejs dependencies <<<<<<<<\e[0m"
 npm install
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+echo ${script_path}
 cp /home/centos/roboshop-shell-new/catalogue.service /etc/systemd/system/catalogue.service
 echo -e "\e[36m>>>>>>>>> Starting Catalogue service <<<<<<<<\e[0m"
 systemctl daemon-reload
