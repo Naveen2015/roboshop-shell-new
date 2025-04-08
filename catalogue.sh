@@ -19,6 +19,7 @@ unzip /tmp/catalogue.zip
 echo -e "\e[36m>>>>>>>>> Downloading nodejs dependencies <<<<<<<<\e[0m"
 npm install
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
+echo pwd
 echo ${script_path}
 cp ${script_path}/catalogue.service /etc/systemd/system/catalogue.service
 echo -e "\e[36m>>>>>>>>> Starting Catalogue service <<<<<<<<\e[0m"
