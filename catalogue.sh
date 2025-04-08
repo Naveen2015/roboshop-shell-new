@@ -1,10 +1,5 @@
 script=$(realpath "$0")
-echo "$script"
 script_path=$(dirname "$script")
-echo ${script_path}
-exit
-
-
 source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>> configuring and downloading nodejs <<<<<<<<\e[0m"
 dnf module disable nodejs -y
@@ -23,15 +18,13 @@ unzip /tmp/catalogue.zip
 echo -e "\e[36m>>>>>>>>> Downloading nodejs dependencies <<<<<<<<\e[0m"
 npm install
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
-pwd
-echo ${script_path}
 cp ${script_path}/catalogue.service /etc/systemd/system/catalogue.service
 echo -e "\e[36m>>>>>>>>> Starting Catalogue service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl restart catalogue
 echo -e "\e[36m>>>>>>>>> Copying Mongodb repo file <<<<<<<<\e[0m"
-cp /home/centos/roboshop-shell-new/mongo.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 echo -e "\e[36m>>>>>>>>> Downloading Mongodb <<<<<<<<\e[0m"
 dnf install mongodb-org-shell -y
 echo -e "\e[36m>>>>>>>>> Load Schema <<<<<<<<\e[0m"
