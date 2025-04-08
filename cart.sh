@@ -1,4 +1,6 @@
-source common.sh
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
 echo -e "\e[36m>>>>>>>>> configuring and downloading nodejs <<<<<<<<\e[0m"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
@@ -15,7 +17,7 @@ unzip /tmp/cart.zip
 echo -e "\e[36m>>>>>>>>> Downloading Nodejs dependencies <<<<<<<<\e[0m"
 npm install
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
-cp /home/centos/roboshop-shell-new/cart.service /etc/systemd/system/cart.service
+cp ${script_path}/cart.service /etc/systemd/system/cart.service
 
 
 echo -e "\e[36m>>>>>>>>> Staring cart service <<<<<<<<\e[0m"

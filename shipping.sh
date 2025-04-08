@@ -1,4 +1,7 @@
-source common.sh
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
+
 echo -e "\e[36m>>>>>>>>> Installing Maven <<<<<<<<\e[0m"
 dnf install maven -y
 echo -e "\e[36m>>>>>>>>> Adding Application User <<<<<<<<\e[0m"
@@ -19,7 +22,7 @@ dnf install mysql -y
 echo -e "\e[36m>>>>>>>>> Loading schema <<<<<<<<\e[0m"
 mysql -h mysql-dev.kruthikadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
-cp /home/centos/roboshop-shell-new/shipping.service /etc/systemd/system/shipping.service
+cp ${script_path}/shipping.service /etc/systemd/system/shipping.service
 
 echo -e "\e[36m>>>>>>>>> Staring Shipping service <<<<<<<<\e[0m"
 systemctl daemon-reload
