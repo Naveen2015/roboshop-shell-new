@@ -1,9 +1,10 @@
+source common.sh
 echo -e "\e[36m>>>>>>>>> configuring and downloading nodejs <<<<<<<<\e[0m"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 dnf install nodejs -y
 echo -e "\e[36m>>>>>>>>> Creating Application User <<<<<<<<\e[0m"
-useradd roboshop
+useradd ${app_user}
 echo -e "\e[36m>>>>>>>>> Creating Application Directory <<<<<<<<\e[0m"
 mkdir /app
 echo -e "\e[36m>>>>>>>>> Downloading the app content <<<<<<<<\e[0m"

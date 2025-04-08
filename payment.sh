@@ -1,7 +1,8 @@
+source common.sh
 echo -e "\e[36m>>>>>>>>> Installing Python <<<<<<<<\e[0m"
 dnf install python36 gcc python3-devel -y
 echo -e "\e[36m>>>>>>>>> Adding Application User <<<<<<<<\e[0m"
-useradd roboshop
+useradd ${app_user}
 echo -e "\e[36m>>>>>>>>> Creating Application Folder <<<<<<<<\e[0m"
 mkdir /app
 echo -e "\e[36m>>>>>>>>> Downloading app content <<<<<<<<\e[0m"
