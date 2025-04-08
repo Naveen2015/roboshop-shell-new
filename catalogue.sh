@@ -1,5 +1,5 @@
 script_path= $(dirname $0)
-echo $script_path
+echo ${script_path}
 exit
 source common.sh
 echo -e "\e[36m>>>>>>>>> configuring and downloading nodejs <<<<<<<<\e[0m"
