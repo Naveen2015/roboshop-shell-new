@@ -1,7 +1,12 @@
 script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
+mysql_root_password=$1
 
+#if [ -z "$1" ]
+#then
+ # echo "password is missing"
+#fi
 echo -e "\e[36m>>>>>>>>> Installing Maven <<<<<<<<\e[0m"
 dnf install maven -y
 echo -e "\e[36m>>>>>>>>> Adding Application User <<<<<<<<\e[0m"
@@ -20,7 +25,7 @@ mv target/shipping-1.0.jar shipping.jar
 echo -e "\e[36m>>>>>>>>> Installing Mysql<<<<<<<<\e[0m"
 dnf install mysql -y
 echo -e "\e[36m>>>>>>>>> Loading schema <<<<<<<<\e[0m"
-mysql -h mysql-dev.kruthikadevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql
+mysql -h mysql-dev.kruthikadevops.online -uroot -p${mysql_root_password} < /app/schema/shipping.sql
 echo -e "\e[36m>>>>>>>>> copying service file to systemd <<<<<<<<\e[0m"
 cp ${script_path}/shipping.service /etc/systemd/system/shipping.service
 
