@@ -2,16 +2,20 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 
-echo -e "\e[36m>>>>>>>>> Installing Nginx <<<<<<<<\e[0m"
-dnf install nginx -y
-echo -e "\e[36m>>>>>>>>> Copying nginx configuration <<<<<<<<\e[0m"
-cp roboshop.conf /etc/nginx/default.d/roboshop.conf
-echo -e "\e[36m>>>>>>>>> Remove default content <<<<<<<<\e[0m"
+func_print_head "Installing Nginx"
+dnf install nginx -y &>>$log_file
+func_stat_check $?
+func_print_head "Copying nginx configuration"
+cp roboshop.conf /etc/nginx/default.d/roboshop.conf &>>$log_file
+func_stat_check $?
+func_print_head "Remove default content"
 rm -rf /usr/share/nginx/html/*
-echo -e "\e[36m>>>>>>>>> Downloading and Unzip app content <<<<<<<<\e[0m"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+func_print_head "Downloading and Unzip app content"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>$log_file
 cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
-echo -e "\e[36m>>>>>>>>> Starting Frontend Service <<<<<<<<\e[0m"
+unzip /tmp/frontend.zip &>>$log_file
+func_stat_check $?
+func_print_head "Starting Frontend Service" &>>$log_file
 systemctl restart nginx
 systemctl enable nginx
+func_stat_check $?

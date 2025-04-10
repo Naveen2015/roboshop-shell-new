@@ -36,6 +36,22 @@ func_java()
   func_systemd
 
 }
+func_payment()
+{
+func_print_head "Installing Python"
+dnf install python36 gcc python3-devel -y &>>$log_file
+func_stat_check $?
+func_app_prereq
+func_print_head "Installing Python dependencies"
+pip3.6 install -r requirements.txt &>>$log_file
+func_stat_check $?
+
+func_print_head "Editing rabbitmq password in service file"
+sed -i -e "s|rabbitmq_appuser_password|${rabbitmq_appuser_password}|" ${script_path}/payment.service &>>$log_file
+func_stat_check $?
+
+func_systemd
+}
 func_stat_check()
 {
   if [ $1 -eq 0 ]; then
@@ -49,10 +65,10 @@ func_stat_check()
 func_app_prereq()
 {
   func_print_headAdding "Application User"
-    useradd ${app_user} &>>$log_file
-    //if [ id ]; //then
-        
-    //fi
+  id ${app_user} &>>$log_file
+  if [ $? -ne 0 ]; then
+      useradd ${app_user} &>>$log_file
+  fi
     func_stat_check $?
     func_print_headCreating "Application Folder"
     rm -rf /app
