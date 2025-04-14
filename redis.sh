@@ -2,13 +2,13 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 
-echo -e "\e[36m>>>>>>>>> configuring and downloading rabbitmq <<<<<<<<\e[0m"
-dnf module disable redis -y
-dnf module enable redis:6 -y
-dnf install redis -y
-echo -e "\e[36m>>>>>>>>> changing the configuration <<<<<<<<\e[0m"
+func_print_head "configuring and downloading rabbitmq"
+dnf module disable redis -y &>>$log_file
+dnf module enable redis:6 -y &>>$log_file
+dnf install redis -y &>>$log_file
+func_print_head "changing the configuration"
 sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/redis.conf
 sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/redis/redis.conf
-echo -e "\e[36m>>>>>>>>> Enabling redis <<<<<<<<\e[0m"
+func_print_head "Enabling redis"
 systemctl enable redis
 systemctl restart redis
