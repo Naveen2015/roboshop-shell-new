@@ -2,12 +2,12 @@ script=$(realpath "$0")
 script_path=$(dirname "$script")
 source ${script_path}/common.sh
 
-echo -e "\e[36m>>>>>>>>> Configuring Mongodb repo<<<<<<<<\e[0m"
+func_print_head "Configuring Mongodb repo"
 cp mongo.repo /etc/yum.repos.d/mongo.repo
-echo -e "\e[36m>>>>>>>>> Installing Mongodb <<<<<<<<\e[0m"
+func_print_head "Installing Mongodb"
 dnf install mongodb-org -y
-echo -e "\e[36m>>>>>>>>> Changing Mongodb configuration <<<<<<<<\e[0m"
+func_print_head "Changing Mongodb configuration"
 sed -i -e "s|127.0.0.1|0.0.0.0|" /etc/mongod.conf
-echo -e "\e[36m>>>>>>>>> Starting Mongodb <<<<<<<<\e[0m"
+func_print_head "Starting Mongodb"
 systemctl enable mongod
 systemctl restart mongod
