@@ -9,8 +9,8 @@ func_print_head()
 func_nodejs()
 {
   func_print_head "configuring and downloading nodejs"
-  dnf module disable nodejs -y
-  dnf module enable nodejs:18 -y
+  dnf module disable nodejs -y &>>$log_file
+  dnf module enable nodejs:18 -y &>>$log_file
   dnf install nodejs -y &>>$log_file
   func_stat_check $?
   func_app_prereq
@@ -64,13 +64,13 @@ func_stat_check()
 }
 func_app_prereq()
 {
-  func_print_head "Application User"
+  func_print_head "Creating Application User"
   id ${app_user} &>>$log_file
   if [ $? -ne 0 ]; then
       useradd ${app_user} &>>$log_file
   fi
     func_stat_check $?
-    func_print_head "Application Folder"
+    func_print_head "Creating Application Folder"
     rm -rf /app
     mkdir /app
    func_stat_check $?
