@@ -15,7 +15,7 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.z
 cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$log_file
 func_stat_check $?
-func_print_head "Starting Frontend Service" &>>$log_file
+func_print_head "Starting Frontend Service"
 systemctl restart nginx
 systemctl enable nginx
 func_stat_check $?
