@@ -106,6 +106,7 @@ func_schema_setup()
       func_stat_check $?
       func_print_head "Loading schema"
       mysql -h mysql-dev.kruthikadevops.online -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>$log_file
+      func_print_head "mysql schema loaded"
       func_stat_check $?
       func_systemd
     fi
