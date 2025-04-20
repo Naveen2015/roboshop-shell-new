@@ -18,3 +18,4 @@ rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 func_print_head  "Starting Rabbitmq" &>>$log_file
 systemctl enable rabbitmq-server
 systemctl restart rabbitmq-server
+func_stat_check $?
