@@ -19,6 +19,7 @@ func_nodejs()
   func_stat_check $?
 
   func_systemd
+  func_print_head "calling schema setup"
   func_schema_setup
 }
 func_java()
